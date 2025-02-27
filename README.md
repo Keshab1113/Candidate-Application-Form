@@ -1,3 +1,6 @@
+![Screenshot (463)](https://github.com/user-attachments/assets/95ff48ba-e78e-4966-910a-2573425a9e52)
+![Screenshot (462)](https://github.com/user-attachments/assets/fa3c3b94-c366-4077-9b46-162016c296ea)
+![Screenshot (461)](https://github.com/user-attachments/assets/9db50a60-a720-404f-9960-652947b3385a)
 # Candidate Application Form
 
 This is a web-based candidate application form that allows users to submit their job applications with details like name, email, LinkedIn profile, skills, and a resume upload option.
