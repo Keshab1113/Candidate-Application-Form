@@ -60,24 +60,32 @@ export default function Home() {
 
   // Handle candidate search
   const handleSearch = async (e) => {
-    e.preventDefault();
-    setIsLoading(true); // Set loading state to true
+  e.preventDefault();
+  setIsLoading(true); // Set loading state to true
 
+  try {
     const response = await fetch('/api/search', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ jobDescription }),
     });
 
-    if (response.ok) {
-      const data = await response.json();
-      setResults(data);
-    } else {
-      alert('Failed to search candidates.');
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Search API Error:', response.status, errorText);
+      throw new Error(`Search failed: ${response.statusText}`);
     }
 
+    const data = await response.json();
+    setResults(data);
+  } catch (error) {
+    console.error('Search Request Failed:', error);
+    alert(`Failed to search candidates. ${error.message}`);
+  } finally {
     setIsLoading(false); // Reset loading state
-  };
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
@@ -208,7 +216,7 @@ export default function Home() {
                     <p className="text-sm text-gray-600">Skills: {candidate.skills}</p>
                     <p className="text-sm text-gray-600">Score: {candidate.score.toFixed(2)}</p>
                     <div className="mt-2">
-                      <h5 className="text-md font-medium">AI Feedback:</h5>
+                      <h5 className="text-md font-medium text-black">AI Feedback:</h5>
                       <p className="text-sm text-gray-700">{candidate.feedback}</p>
                     </div>
                   </div>
