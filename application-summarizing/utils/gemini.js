@@ -1,9 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const genAI = new GoogleGenerativeAI({
-  apiKey: process.env.GEMINI_API_KEY,
-  apiVersion: 'v1', // Use the latest version
-});
+const apiKey = process.env.GEMINI_API_KEY;
+const genAI = new GoogleGenerativeAI(apiKey);
 
 /**
  * Summarizes a resume using Google Gemini API.
@@ -12,7 +10,7 @@ const genAI = new GoogleGenerativeAI({
  */
 export async function summarizeResume(resumeText) {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
     const prompt = `Summarize the following resume:\n\n${resumeText}`;
     const result = await model.generateContent(prompt);
     return result.response.text();
@@ -30,7 +28,7 @@ export async function summarizeResume(resumeText) {
  */
 export async function matchJobDescription(jobDescription, candidateProfile) {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
     const prompt = `Match the following job description with the candidate profile:\n\nJob Description: ${jobDescription}\n\nCandidate Profile: ${candidateProfile}`;
     const result = await model.generateContent(prompt);
     return result.response.text();
